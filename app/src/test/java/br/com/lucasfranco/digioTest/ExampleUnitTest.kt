@@ -1,4 +1,4 @@
-package br.com.lucasfranco.digio_test
+package br.com.lucasfranco.digioTest
 
 import org.junit.Test
 

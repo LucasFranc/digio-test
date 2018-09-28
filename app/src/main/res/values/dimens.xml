@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pattern_margin">16dp</dimen>
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="double_margin_pattern">32dp</dimen>
+</resources>
