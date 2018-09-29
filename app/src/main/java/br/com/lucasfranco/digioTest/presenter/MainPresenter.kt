@@ -15,7 +15,9 @@ class MainPresenter : OptionsCallback {
     }
 
     override fun onResponse(response: Options) {
+        view.bindSpotlight(response.spotlights)
         view.bindCash(response.cash)
+        view.bindProducts(response.products)
     }
     override fun onError(message: String) {
 

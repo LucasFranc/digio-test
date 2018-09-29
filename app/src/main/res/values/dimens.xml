@@ -2,5 +2,9 @@
 <resources>
     <dimen name="pattern_margin">16dp</dimen>
     <dimen name="title_size">24sp</dimen>
+    <dimen name="half_pattern_margin">8dp</dimen>
+    <dimen name="four_dp">4dp</dimen>
     <dimen name="double_margin_pattern">32dp</dimen>
+    <dimen name="product_size">150dp</dimen>
+    <dimen name="product_image_size">75dp</dimen>
 </resources>
