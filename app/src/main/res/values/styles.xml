@@ -11,4 +11,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ThemeDialog" parent="android:Theme.Holo.Dialog.NoActionBar">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">30%</item>
+    </style>
+
 </resources>

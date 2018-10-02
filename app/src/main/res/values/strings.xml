@@ -3,4 +3,5 @@
     <string name="hello">Olá, Maria!</string>
     <string name="digio_cash">digio Cash</string>
     <string name="produtos">Produtos</string>
+    <string name="loading">Carregando…</string>
 </resources>

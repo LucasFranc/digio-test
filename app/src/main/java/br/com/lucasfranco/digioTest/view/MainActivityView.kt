@@ -8,4 +8,7 @@ interface MainActivityView {
     fun bindCash(cash: Cash)
     fun bindProducts(products : List<Product>)
     fun bindSpotlight(spotlights: List<Spotlight>)
+    fun showToast(message : String)
+    fun showLoading()
+    fun hideLoading()
 }
