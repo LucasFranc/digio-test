@@ -4,26 +4,23 @@ import br.com.lucasfranco.digioTest.callbacks.OptionsCallback
 import br.com.lucasfranco.digioTest.service.MainService
 import br.com.lucasfranco.digioTest.model.Options
 import br.com.lucasfranco.digioTest.utils.RetrofitClient
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainInteractor {
+open class MainInteractor : MainInteractorInterface {
 
-    fun getOptions(callback: OptionsCallback) {
-        RetrofitClient.getClient().create(MainService::class.java).getOptions().enqueue(object : Callback<Options> {
-            override fun onResponse(call: Call<Options>, response: Response<Options>) {
-                if(response.isSuccessful){
-                    callback.onResponse(response.body()!!)
-                }else{
-                    onFailure(call, Throwable("error"))
-                }
-            }
-            override fun onFailure(call: Call<Options>, t: Throwable) {
-                callback.onError(t.localizedMessage)
-            }
-
-        })
+    override fun getOptions(): Single<Options> {
+        return RetrofitClient.getClient()
+                .create(MainService::class.java)
+                .getOptions()
+                .map {it.body()}
     }
 
+}
+
+interface MainInteractorInterface {
+
+    fun getOptions(): Single<Options>
 }

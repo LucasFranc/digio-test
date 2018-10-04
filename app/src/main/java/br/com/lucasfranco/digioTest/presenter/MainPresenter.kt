@@ -1,33 +1,36 @@
 package br.com.lucasfranco.digioTest.presenter
 
-import br.com.lucasfranco.digioTest.callbacks.OptionsCallback
-import br.com.lucasfranco.digioTest.interactor.MainInteractor
-import br.com.lucasfranco.digioTest.model.Options
+import android.support.annotation.MainThread
+import br.com.lucasfranco.digioTest.interactor.MainInteractorInterface
 import br.com.lucasfranco.digioTest.view.MainActivityView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class MainPresenter : OptionsCallback {
+open class MainPresenter(val interactor: MainInteractorInterface,
+                         val mainThread: Scheduler = AndroidSchedulers.mainThread(),
+                         val ioTread: Scheduler = Schedulers.io()) {
 
     private lateinit var view: MainActivityView
 
-    fun attachView(view: MainActivityView) { this.view = view }
+    fun attachView(view: MainActivityView) {
+        this.view = view
+    }
+
     fun doRequestOptions() {
-        view.showLoading()
-        MainInteractor().getOptions(this)
+        interactor
+                .getOptions()
+                .observeOn(mainThread)
+                .subscribeOn(ioTread)
+                .doOnSubscribe { view.showLoading() }
+                .doFinally { view.hideLoading() }
+                .subscribe({
+                    view.bindSpotlight(it.spotlights)
+                    view.bindCash(it.cash)
+                    view.bindProducts(it.products)
+                }, {
+                    view.showToast(it.localizedMessage)
+                })
     }
-
-    override fun onResponse(response: Options) {
-        view.hideLoading()
-        view.bindSpotlight(response.spotlights)
-        view.bindCash(response.cash)
-        view.bindProducts(response.products)
-    }
-    override fun onError(message: String) {
-        view.hideLoading()
-        view.showToast(message)
-    }
-
 
 }
