@@ -1,6 +1,6 @@
 package br.com.lucasfranco.digioTest
 
-import br.com.lucasfranco.digioTest.interactor.MainInteractorInterface
+import br.com.lucasfranco.digioTest.interactor.MainInteractor
 import br.com.lucasfranco.digioTest.model.Cash
 import br.com.lucasfranco.digioTest.model.Options
 import br.com.lucasfranco.digioTest.presenter.MainPresenter
@@ -16,16 +16,17 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.plugins.RxAndroidPlugins
 import java.lang.Exception
 
-
-class ExampleUnitTest {
+class MainPresenterUnitTest {
 
     @Mock lateinit var view : MainActivityView
-    @Mock lateinit var interactor : MainInteractorInterface
-    lateinit var testScheduler: TestScheduler
-    lateinit var presenter: MainPresenter
+    @Mock lateinit var interactor : MainInteractor
+    private lateinit var testScheduler: TestScheduler
+    private lateinit var presenter: MainPresenter
+
 
     @Before
     fun setup(){
+        //Init mocks and Schedulers
         MockitoAnnotations.initMocks(this)
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { _ -> Schedulers.trampoline() }
         testScheduler = TestScheduler()
@@ -34,17 +35,16 @@ class ExampleUnitTest {
 
     @Test
     fun test() {
-        //mock response
+        //Mocking the response
         val response = Options(listOf(), listOf(), Cash(" ", " "))
-        //mock call
+        //Mocking the call from server, returning the mocked response
         Mockito.`when`(interactor.getOptions()).thenReturn(Single.just(response))
-        //do request
+        //Actually call the method being tested
         presenter.attachView(view)
         presenter.doRequestOptions()
-        //do verifications
+        //Do the verifications for what have to be called
         Mockito.verify(view).showLoading()
         testScheduler.triggerActions()
-
         Mockito.verify(view).bindCash(response.cash)
         Mockito.verify(view).bindProducts(response.products)
         Mockito.verify(view).bindSpotlight(response.spotlights)
@@ -54,17 +54,11 @@ class ExampleUnitTest {
 
     @Test
     fun testError() {
-        //mock response
-        val response = Options(listOf(), listOf(), Cash(" ", " "))
-        //mock call
         Mockito.`when`(interactor.getOptions()).thenReturn(Single.error(Exception("")))
-        //do request
         presenter.attachView(view)
         presenter.doRequestOptions()
-        //do verifications
         Mockito.verify(view).showLoading()
         testScheduler.triggerActions()
-
         Mockito.verify(view).showToast("")
         testScheduler.triggerActions()
         Mockito.verify(view).hideLoading()

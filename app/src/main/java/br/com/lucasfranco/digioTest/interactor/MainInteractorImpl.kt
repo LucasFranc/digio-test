@@ -1,15 +1,11 @@
 package br.com.lucasfranco.digioTest.interactor
 
-import br.com.lucasfranco.digioTest.callbacks.OptionsCallback
 import br.com.lucasfranco.digioTest.service.MainService
 import br.com.lucasfranco.digioTest.model.Options
 import br.com.lucasfranco.digioTest.utils.RetrofitClient
 import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-open class MainInteractor : MainInteractorInterface {
+class MainInteractorImpl : MainInteractor {
 
     override fun getOptions(): Single<Options> {
         return RetrofitClient.getClient()
@@ -17,10 +13,8 @@ open class MainInteractor : MainInteractorInterface {
                 .getOptions()
                 .map {it.body()}
     }
-
 }
 
-interface MainInteractorInterface {
-
+interface MainInteractor {
     fun getOptions(): Single<Options>
 }

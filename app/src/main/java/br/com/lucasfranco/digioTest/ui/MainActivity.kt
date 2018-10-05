@@ -8,7 +8,7 @@ import android.widget.Toast
 import br.com.lucasfranco.digioTest.view.MainActivityView
 import br.com.lucasfranco.digioTest.presenter.MainPresenter
 import br.com.lucasfranco.digioTest.R
-import br.com.lucasfranco.digioTest.interactor.MainInteractor
+import br.com.lucasfranco.digioTest.interactor.MainInteractorImpl
 import br.com.lucasfranco.digioTest.model.Cash
 import br.com.lucasfranco.digioTest.model.Product
 import br.com.lucasfranco.digioTest.model.Spotlight
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainActivityView {
 
-    private val presenter = MainPresenter( MainInteractor())
+    private val presenter = MainPresenter( MainInteractorImpl())
     private lateinit var loadingDialog : Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
