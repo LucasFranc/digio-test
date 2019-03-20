@@ -53,12 +53,12 @@ class MainActivity : AppCompatActivity(), MainActivityView, OnSpotlightItemClick
 
     override fun onClick(spotlight: Spotlight) {
         val i = Intent(this@MainActivity,DetailsActivity::class.java)
-        i.putExtra("item", Item(spotlight.name,spotlight.bannerURL,"Dê um vale presente Uber para amigos e familiares, ou use os vales para adicionar créditos à sua conta. O app Uber conecta você a uma viagem confiável em apenas alguns minutos. Você pode escolher entre as opções econômicas ou Premium para viajar do seu jeito. O pagamento é fácil e sem complicações!"))
+        i.putExtra("item", Item(spotlight.name,spotlight.bannerURL,spotlight.description))
         startActivity(i)
     }
     override fun onClick(product: Product) {
         val i = Intent(this@MainActivity,DetailsActivity::class.java)
-        i.putExtra("item", Item(product.name,product.imageURL,"Dê um vale presente Uber para amigos e familiares, ou use os vales para adicionar créditos à sua conta. O app Uber conecta você a uma viagem confiável em apenas alguns minutos. Você pode escolher entre as opções econômicas ou Premium para viajar do seu jeito. O pagamento é fácil e sem complicações!"))
+        i.putExtra("item", Item(product.name,product.imageURL,product.description))
         startActivity(i)
     }
 
