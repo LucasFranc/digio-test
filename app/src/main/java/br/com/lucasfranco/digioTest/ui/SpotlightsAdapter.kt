@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.lucasfranco.digioTest.R
+import br.com.lucasfranco.digioTest.callbacks.OnSpotlightItemClickCallback
 import br.com.lucasfranco.digioTest.model.Spotlight
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.view_holder_spotlights.view.*
 
 
 
-class SpotlightsAdapter(private val spotlights: List<Spotlight>) : RecyclerView.Adapter<SpotlightsAdapter.ViewHolder>() {
+class SpotlightsAdapter(private val spotlights: List<Spotlight>, private val callback: OnSpotlightItemClickCallback) : RecyclerView.Adapter<SpotlightsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_holder_spotlights, parent, false)
@@ -24,6 +25,9 @@ class SpotlightsAdapter(private val spotlights: List<Spotlight>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView.context).load(spotlights[position].bannerURL).into(holder.imgSpotlight)
+        holder.container.setOnClickListener {
+            callback.onClick(spotlights[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +37,7 @@ class SpotlightsAdapter(private val spotlights: List<Spotlight>) : RecyclerView.
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgSpotlight = itemView.img_spotlight!!
+        val container = itemView.container!!
     }
 
 }

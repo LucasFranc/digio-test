@@ -1,5 +1,6 @@
 package br.com.lucasfranco.digioTest.presenter
 
+import android.annotation.SuppressLint
 import br.com.lucasfranco.digioTest.interactor.MainInteractor
 import br.com.lucasfranco.digioTest.view.MainActivityView
 import io.reactivex.Scheduler
@@ -14,6 +15,7 @@ class MainPresenter(private val interactor: MainInteractor,
 
     fun attachView(view: MainActivityView) { this.view = view }
 
+    @SuppressLint("CheckResult")
     fun doRequestOptions() {
         interactor.getOptions()
                 .observeOn(mainThread)

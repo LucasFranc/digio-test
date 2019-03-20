@@ -1,8 +1,8 @@
 package br.com.lucasfranco.digioTest
 
 import br.com.lucasfranco.digioTest.interactor.MainInteractor
-import br.com.lucasfranco.digioTest.model.Cash
 import br.com.lucasfranco.digioTest.model.Options
+import br.com.lucasfranco.digioTest.model.Spotlight
 import br.com.lucasfranco.digioTest.presenter.MainPresenter
 import br.com.lucasfranco.digioTest.view.MainActivityView
 import io.reactivex.Single
@@ -36,7 +36,7 @@ class MainPresenterUnitTest {
     @Test
     fun test() {
         //Mocking the response
-        val response = Options(listOf(), listOf(), Cash(" ", " "))
+        val response = Options(listOf(), listOf(), Spotlight(" ", " "))
         //Mocking the call from server, returning the mocked response
         Mockito.`when`(interactor.getOptions()).thenReturn(Single.just(response))
         //Actually call the method being tested
